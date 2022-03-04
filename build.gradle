@@ -6,13 +6,11 @@ buildscript {
     repositories {
         google()
         jcenter()
-        maven { url "https://dl.bintray.com/prototypez/maven/"}
-        maven { url '../repo' }
+        mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.2'
+        classpath 'com.android.tools.build:gradle:3.6.0'
         classpath 'io.github.prototypez:app-joint:1.7'
-        classpath 'com.novoda:bintray-release:0.9.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -22,9 +20,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
-        maven { url '../../repo' }
-        maven { url '../../../repo' }
+        mavenCentral()
     }
 }
 
