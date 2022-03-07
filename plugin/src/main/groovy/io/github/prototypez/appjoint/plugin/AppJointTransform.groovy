@@ -16,7 +16,7 @@ class AppJointTransform extends Transform {
     /**
      * Classes annotated with @ModuleSpec
      */
-  def moduleApplications = new ArrayList<AnnotationModuleSpec>()
+    def moduleApplications = new ArrayList<AnnotationModuleSpec>()
     /**
      * Classes annotated with @AppSpec
      */
@@ -24,7 +24,7 @@ class AppJointTransform extends Transform {
     /**
      * Classes annotated with @ServiceProvider
      */
-  def routerAndImpl = new HashMap<Tuple2<String, String>, String>()
+    def routerAndImpl = new HashMap<Tuple2<String, String>, String>()
 
     /**
      * The AppJoint class File
@@ -36,11 +36,11 @@ class AppJointTransform extends Transform {
      */
     File appJointOutputFile
 
-  public static final String SERVICE_PROVIDER_DEFAULT_NAME = "__app_joint_default";
+    public static final String SERVICE_PROVIDER_DEFAULT_NAME = "__app_joint_default";
 
-  public static final int MODULE_SPEC_DEFAULT_PRIORITY = 1000;
+    public static final int MODULE_SPEC_DEFAULT_PRIORITY = 1000;
 
-  AppJointTransform(Project project) {
+    AppJointTransform(Project project) {
         mProject = project
     }
 
@@ -236,9 +236,9 @@ class AppJointTransform extends Transform {
                         mProject.logger.info("insertApplicationAdd order:${moduleApplications[i].order} className:${moduleApplications[i].className}")
                         insertApplicationAdd(moduleApplications[i].className)
                     }
-                  routerAndImpl.each {
-                    Tuple2<String, String> router, impl -> insertRoutersPut(router, impl)
-                  }
+                    routerAndImpl.each {
+                        Tuple2<String, String> router, impl -> insertRoutersPut(router, impl)
+                    }
                     break
             }
             super.visitInsn(opcode)
@@ -258,15 +258,15 @@ class AppJointTransform extends Transform {
             mv.visitInsn(Opcodes.POP)
         }
 
-      void insertRoutersPut(Tuple2<String, String> router, String impl) {
+        void insertRoutersPut(Tuple2<String, String> router, String impl) {
             mv.visitVarInsn(Opcodes.ALOAD, 0)
-        mv.visitFieldInsn(Opcodes.GETFIELD, "io/github/prototypez/appjoint/AppJoint", "routersMap",
-            "Lio/github/prototypez/appjoint/util/BinaryKeyMap;")
-        mv.visitLdcInsn(Type.getObjectType(router.first))
-        mv.visitLdcInsn(router.second)
+            mv.visitFieldInsn(Opcodes.GETFIELD, "io/github/prototypez/appjoint/AppJoint", "routersMap",
+                    "Lio/github/prototypez/appjoint/util/BinaryKeyMap;")
+            mv.visitLdcInsn(Type.getObjectType(router.first))
+            mv.visitLdcInsn(router.second)
             mv.visitLdcInsn(Type.getObjectType(impl))
-        mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "io/github/prototypez/appjoint/util/BinaryKeyMap",
-            "put", "(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)V", true)
+            mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "io/github/prototypez/appjoint/util/BinaryKeyMap",
+                    "put", "(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)V", true)
         }
     }
 
@@ -390,8 +390,8 @@ class AppJointTransform extends Transform {
 
     /**
      * Find the AppJoint class, this method doesn't change the class file
-     * @param file: the class file to be checked
-     * @param outputFile: where the modified class should be output to
+     * @param file : the class file to be checked
+     * @param outputFile : where the modified class should be output to
      * @return whether the file is AppJoint class file
      */
     boolean findAppJointClass(File file, File outputFile) {
@@ -450,46 +450,46 @@ class AppJointTransform extends Transform {
                 mProject.logger.info("visiting $desc")
                 switch (desc) {
                     case "Lio/github/prototypez/appjoint/core/ModuleSpec;":
-                      addModuleApplication(new AnnotationModuleSpec(cr.className))
-                      return new AnnotationMethodsVisitor() {
-                        @Override
-                        void visit(String name, Object value) {
-                          def moduleApplication = moduleApplications.find({
-                            it.className == cr.className
-                          })
-                          if (moduleApplication) {
-                            moduleApplication.order = Integer.valueOf(value)
-                          }
-                          super.visit(name, value)
+                        addModuleApplication(new AnnotationModuleSpec(cr.className))
+                        return new AnnotationMethodsVisitor() {
+                            @Override
+                            void visit(String name, Object value) {
+                                def moduleApplication = moduleApplications.find({
+                                    it.className == cr.className
+                                })
+                                if (moduleApplication) {
+                                    moduleApplication.order = Integer.valueOf(value)
+                                }
+                                super.visit(name, value)
+                            }
                         }
-                      }
                     case "Lio/github/prototypez/appjoint/core/AppSpec;":
                         appApplications[file] = output
                         needsModification = true
                         break
                     case "Lio/github/prototypez/appjoint/core/ServiceProvider;":
-                      return new AnnotationMethodsVisitor() {
+                        return new AnnotationMethodsVisitor() {
 
-                        boolean valueSpecified;
+                            boolean valueSpecified;
 
-                        @Override
-                        void visit(String name, Object value) {
-                          valueSpecified = true;
-                          cr.interfaces.each { routerAndImpl[new Tuple2(it, value)] = cr.className }
-                          super.visit(name, value)
-                        }
-
-                        @Override
-                        void visitEnd() {
-                          if (!valueSpecified) {
-                            cr.interfaces.each {
-                              routerAndImpl[new Tuple2(it, SERVICE_PROVIDER_DEFAULT_NAME)] =
-                                  cr.className
+                            @Override
+                            void visit(String name, Object value) {
+                                valueSpecified = true;
+                                cr.interfaces.each { routerAndImpl[new Tuple2(it, value)] = cr.className }
+                                super.visit(name, value)
                             }
-                          }
-                          super.visitEnd()
+
+                            @Override
+                            void visitEnd() {
+                                if (!valueSpecified) {
+                                    cr.interfaces.each {
+                                        routerAndImpl[new Tuple2(it, SERVICE_PROVIDER_DEFAULT_NAME)] =
+                                                cr.className
+                                    }
+                                }
+                                super.visitEnd()
+                            }
                         }
-                      }
                 }
                 return super.visitAnnotation(desc, visible)
             }
@@ -498,7 +498,7 @@ class AppJointTransform extends Transform {
         return needsModification
     }
 
-  private void addModuleApplication(AnnotationModuleSpec annotationOrder) {
+    private void addModuleApplication(AnnotationModuleSpec annotationOrder) {
         for (int i = 0; i < moduleApplications.size(); i++) {
             if (annotationOrder.className == moduleApplications.get(i).className) {
                 // the module application class ready to be added is already marked
@@ -508,17 +508,17 @@ class AppJointTransform extends Transform {
         moduleApplications.add(annotationOrder)
     }
 
-  class AnnotationModuleSpec {
-    private int order = MODULE_SPEC_DEFAULT_PRIORITY
+    class AnnotationModuleSpec {
+        private int order = MODULE_SPEC_DEFAULT_PRIORITY
         private String className
 
-    AnnotationModuleSpec(String className) {
+        AnnotationModuleSpec(String className) {
             this.className = className
-    }
+        }
 
-    @Override
-    String toString() {
-      return String.format("{className=%s, order=%s}", className, String.valueOf(order))
+        @Override
+        String toString() {
+            return String.format("{className=%s, order=%s}", className, String.valueOf(order))
         }
     }
     /**
