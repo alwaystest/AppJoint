@@ -1,5 +1,6 @@
 # AppJoint
- [ ![Download](https://api.bintray.com/packages/prototypez/maven/app-joint/images/download.svg) ](https://bintray.com/prototypez/maven/app-joint/_latestVersion)
+
+[![Download](https://jitpack.io/v/alwaystest/AppJoint.svg)](https://jitpack.io/#alwaystest/AppJoint)
 
 ![](https://rawcdn.githack.com/PrototypeZ/AppJoint/master/app-joint-logo.png)
 
