@@ -76,26 +76,29 @@ class AppJointTransform extends Transform {
         // Maybe contains @ModuleSpec, @AppSpec or @ServiceProvider
         def maybeModules = []
 
+        def rootPath = mProject.rootDir.absolutePath
+        mProject.logger.info("project path " + rootPath)
+
         transformInvocation.inputs.each { input ->
             // Find annotated classes in jar
             input.jarInputs.each { jarInput ->
                 if (!jarInput.file.exists()) return
-                mProject.logger.info("jar input:" + jarInput.file.getAbsolutePath())
-                mProject.logger.info("jar name:" + jarInput.name)
-
                 def jarName = jarInput.name
+                def jarPath = jarInput.file.absolutePath
+                mProject.logger.info("jar input:" + jarPath)
+                mProject.logger.info("jar name:" + jarName)
 
-                if (jarName == ":core") {
+                if (jarPath.startsWith(rootPath) && (jarPath - rootPath).startsWith("/core/")) {
                     // maybe stub in dev and handle them later
                     if (maybeStubs.size() == 0) {
                         maybeStubs.add(jarInput)
                     }
                     // maybe submodule, ':core' could be user's business module
                     maybeModules.add(jarInput)
-                } else if (jarName.startsWith(":")) {
+                } else if (jarPath.startsWith(rootPath)) {
                     // maybe submodule
                     maybeModules.add(jarInput)
-                } else if (jarName.startsWith("io.github.prototypez:app-joint-core")) {
+                } else if (jarInput.file.name.matches("app-joint-core.*\\.jar")) {
                     // find the stub
                     maybeStubs.clear()
                     maybeStubs.add(jarInput)
@@ -366,6 +369,7 @@ class AppJointTransform extends Transform {
             this.iLoad1 = iLoad1
         }
 
+        @Override
         void visitInsn(int opcode) {
             switch (opcode) {
                 case Opcodes.IRETURN:

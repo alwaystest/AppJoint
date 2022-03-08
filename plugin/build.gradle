@@ -1,5 +1,5 @@
 group 'io.github.prototypez'
-version '1.7'
+version '2.0.0'
 
 apply plugin: 'groovy'
 apply plugin: 'maven-publish'
@@ -19,7 +19,7 @@ publishing {
 dependencies {
     implementation gradleApi()
     implementation localGroovy()
-    implementation 'com.android.tools.build:gradle:4.2.0'
+    implementation 'com.android.tools.build:gradle-api:4.2.0'
     implementation 'org.ow2.asm:asm:5.1'
     implementation 'commons-io:commons-io:2.6'
 }
