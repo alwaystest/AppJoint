@@ -1,8 +1,16 @@
+plugins {
+    id 'groovy'
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+}
+
+repositories {
+    google()
+    mavenCentral()
+}
+
 group 'io.github.prototypez'
 version '2.0.0'
-
-apply plugin: 'groovy'
-apply plugin: 'maven-publish'
 
 publishing {
     publications {
@@ -15,11 +23,18 @@ publishing {
     }
 }
 
+gradlePlugin {
+    plugins {
+        simplePlugin {
+            id = 'app-joint'
+            implementationClass = 'io.github.prototypez.appjoint.plugin.AppJointPlugin'
+        }
+    }
+}
+
 
 dependencies {
-    implementation gradleApi()
-    implementation localGroovy()
-    implementation 'com.android.tools.build:gradle-api:4.2.0'
+    implementation 'com.android.tools.build:gradle-api:4.2.2'
     implementation 'org.ow2.asm:asm:5.1'
     implementation 'commons-io:commons-io:2.6'
 }

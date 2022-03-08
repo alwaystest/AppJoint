@@ -1,5 +1,12 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
 include ':core'
-include ':plugin'
+includeBuild("plugin")
 
 include ':app'
 include ':module1'
