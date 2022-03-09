@@ -98,7 +98,7 @@ class AppJointTransform extends Transform {
                 } else if (jarPath.startsWith(rootPath)) {
                     // maybe submodule
                     maybeModules.add(jarInput)
-                } else if (jarInput.file.name.matches("app-joint-core.*\\.jar")) {
+                } else if (jarInput.file.name.matches("(jetified-)?app-joint-core.*\\.jar")) {
                     // find the stub
                     maybeStubs.clear()
                     maybeStubs.add(jarInput)
