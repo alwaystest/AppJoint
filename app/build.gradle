@@ -1,9 +1,7 @@
-plugins {
-    id "com.android.application"
-    id "app-joint"
-    id 'kotlin-android'
-    id 'kotlin-android-extensions'
-}
+apply plugin: "com.android.application"
+apply plugin: "app-joint"
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 27
@@ -56,4 +54,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
 
+}
+
+tasks.register("publishToMavenLocal") {
+    dependsOn gradle.includedBuild("plugin").task(":publishToMavenLocal")
 }

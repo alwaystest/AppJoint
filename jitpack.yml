@@ -1,2 +1,2 @@
 install:
-  - ./gradlew clean :plugin:pTML pTML
+  - ./gradlew clean pTML
