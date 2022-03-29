@@ -4,12 +4,14 @@ import android.app.Application;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.res.Configuration;
-import io.github.prototypez.appjoint.util.BinaryKeyMap;
+
 import java.lang.ref.SoftReference;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.github.prototypez.appjoint.util.BinaryKeyMap;
 
 /**
  * Created by zhounl on 2017/11/15.
@@ -97,10 +99,12 @@ public class AppJoint {
     }
 
     public BinaryKeyMap<Class, String, Object> getRouterInstanceMap() {
-        if (softRouterInstanceMap.get() == null) {
-            softRouterInstanceMap = new SoftReference<>(new BinaryKeyMap<>());
+        BinaryKeyMap<Class, String, Object> map = softRouterInstanceMap.get();
+        if (map == null) {
+            map = new BinaryKeyMap<>();
+            softRouterInstanceMap = new SoftReference<>(map);
         }
-        return softRouterInstanceMap.get();
+        return map;
     }
 
     public BinaryKeyMap<Class, String, Class> routersMap() {
