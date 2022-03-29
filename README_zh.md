@@ -1,35 +1,54 @@
 # AppJoint
- [ ![Download](https://api.bintray.com/packages/prototypez/maven/app-joint/images/download.svg) ](https://bintray.com/prototypez/maven/app-joint/_latestVersion)
 
-![](https://rawcdn.githack.com/PrototypeZ/AppJoint/master/app-joint-logo.png)
+**FORK FROM [PrototypeZ/AppJoint](https://github.com/PrototypeZ/AppJoint/)**
+
+感谢大佬提供的杰出思路和实现。
+
+---
+
+[![Download](https://jitpack.io/v/alwaystest/AppJoint.svg)](https://jitpack.io/#alwaystest/AppJoint)
+
+![Logo](https://rawcdn.githack.com/PrototypeZ/AppJoint/master/app-joint-logo.png)
 
 极简 Android 组件化方案。仅包含 **3** 个注解加 **1** 个 API，超低学习成本，支持渐进式组件化。
 
 ## 开始接入
 
-1. 在项目根目录的 `build.gradle` 文件中添加 **AppJoint插件** 依赖：
+1. 添加 jitpack 仓库的依赖
+
+```groovy
+buildScript {
+    repositories {
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+    }
+}
+```
+
+2. 在项目根目录的 `build.gradle` 文件中添加 **AppJoint 插件** 依赖：
 
 ```groovy
 buildscript {
     ...
     dependencies {
         ...
-        classpath 'io.github.prototypez:app-joint:{latest_version}'
+        classpath 'com.github.alwaystest.AppJoint:app-joint:{latest_version}'
     }
 }
 ```
 
-2. 在主 App 模块和每个组件化的模块添加 **AppJoint** 依赖：
+3. 在主 App 模块和每个组件化的模块添加 **AppJoint** 依赖：
 
 ```groovy
 dependencies {
     ...
-    implementation "io.github.prototypez:app-joint-core:{latest_version}"
+    implementation "com.github.alwaystest.AppJoint:app-joint-core:{latest_version}"
 }
 ```
-> 代码中的 `{latest_version}` 即最新版本，当前为： [ ![Download](https://api.bintray.com/packages/prototypez/maven/app-joint/images/download.svg) ](https://bintray.com/prototypez/maven/app-joint/_latestVersion)
 
-3. 在主 App 模块应用 **AppJoint插件**： 
+> 代码中的 `{latest_version}` 即最新版本，当前为： [![Download](https://jitpack.io/v/alwaystest/AppJoint.svg)](https://jitpack.io/#alwaystest/AppJoint)
+
+4. 在主 App 模块应用 **AppJoint 插件**：
 
 ```groovy
 apply plugin: 'com.android.application'
@@ -135,8 +154,7 @@ class App : Application() {
 }
 ```
 
-**AppJoint** 可以保证，当标记了 `@AppSpec` 的类被系统回调属于 `Application` 的某个生命周期函数（例如 `onCreate`、 `attachBaseContext`）时，那些标记了 `@ModuleSpec` 的类也会被回调相同的生命周期方法。 
-
+**AppJoint** 可以保证，当标记了 `@AppSpec` 的类被系统回调属于 `Application` 的某个生命周期函数（例如 `onCreate`、 `attachBaseContext`）时，那些标记了 `@ModuleSpec` 的类也会被回调相同的生命周期方法。
 
 ## 跨模块接口的多种实现
 
@@ -171,7 +189,7 @@ Module1Service service = AppJoint.service(Module1Service.class, "anotherImpl");
 ## FAQ
 
 + Q: AppJoint 支持 Instant Run 吗？
-  
+
   A: 支持，请放心使用。
 
 + Q: 需要配置 Proguard 规则吗？
@@ -180,10 +198,9 @@ Module1Service service = AppJoint.service(Module1Service.class, "anotherImpl");
 
 ## 常见问题
 
-+ 在编译的过程中报错， `AppJoint class file not found, please check "io.github.prototypez:app-joint-core:{latest_version}" is in your dependency graph.`
++ 在编译的过程中报错， `AppJoint class file not found, please check "com.github.alwaystest.AppJoint:app-joint-core:{latest_version}" is in your dependency graph.`
 
-  解决方案： 首先确定在应用了 `apply plugin: 'app-joint'` 的模块内，确实可以访问到 `"io.github.prototypez:app-joint-core:{latest_version}"` 这个依赖，然后确保插件应用在其它插件之前。
-
+  解决方案： 首先确定在应用了 `apply plugin: 'app-joint'` 的模块内，确实可以访问到 `"com.github.alwaystest.AppJoint:app-joint-core:{latest_version}"` 这个依赖，然后确保插件应用在其它插件之前。
 
 ## LICENSE
 

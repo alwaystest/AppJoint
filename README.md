@@ -1,41 +1,58 @@
 # AppJoint
 
+**FORK FROM [PrototypeZ/AppJoint](https://github.com/PrototypeZ/AppJoint/)**
+
+Thanks for his brilliant idea and initiate implementation.
+
+---
+
 [![Download](https://jitpack.io/v/alwaystest/AppJoint.svg)](https://jitpack.io/#alwaystest/AppJoint)
 
-![](https://rawcdn.githack.com/PrototypeZ/AppJoint/master/app-joint-logo.png)
+![Logo](https://rawcdn.githack.com/PrototypeZ/AppJoint/master/app-joint-logo.png)
 
-[中文文档](https://github.com/PrototypeZ/AppJoint/blob/master/README_zh.md)
+[中文文档](https://github.com/alwaystest/AppJoint/blob/master/README_zh.md)
 
-Simple tool to make your multi-module Android development easier! 
+Simple tool to make your multi-module Android development easier!
 
-Only **3** annotations and **1** function call are included. 
+Only **3** annotations and **1** function call are included.
 
 ## Getting started
 
-1. Add the **AppJoint** plugin dependency to the `build.gradle` file in project root:
+1. Add JitPack Repo in buildScript block
+
+```groovy
+buildScript {
+    repositories {
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+    }
+}
+```
+
+2. Add the **AppJoint** plugin dependency to the `build.gradle` file in project root:
 
 ```groovy
 buildscript {
     ...
     dependencies {
         ...
-        classpath 'io.github.prototypez:app-joint:{latest_version}'
+        classpath 'com.github.alwaystest.AppJoint:app-joint:{latest_version}'
     }
 }
 ```
 
-2. Add the **AppJoint** dependency to every module：
+3. Add the **AppJoint** dependency to every module：
 
 ```groovy
 dependencies {
     ...
-    implementation "io.github.prototypez:app-joint-core:{latest_version}"
+    implementation "com.github.alwaystest.AppJoint:app-joint-core:{latest_version}"
 }
 ```
 
-> Currently the latest version is： [ ![Download](https://api.bintray.com/packages/prototypez/maven/app-joint/images/download.svg) ](https://bintray.com/prototypez/maven/app-joint/_latestVersion)
+> Currently the latest version is： [![Download](https://jitpack.io/v/alwaystest/AppJoint.svg)](https://jitpack.io/#alwaystest/AppJoint)
 
-3. Apply the **AppJoint** plugin to your main app module： 
+4. Apply the **AppJoint** plugin to your main app module：
 
 ```groovy
 apply plugin: 'com.android.application'
@@ -44,7 +61,7 @@ apply plugin: 'app-joint'
 
 ## Cross module method invocation
 
-Assuming the `router` module is a common module that all the other modules depend on it. Then we can define interfaces that each module wish to provide for other modules to use in the `router` module. For example, the `module1` module provides the `Module1Service` interface for other modules to use:  
+Assuming the `router` module is a common module that all the other modules depend on it. Then we can define interfaces that each module wish to provide for other modules to use in the `router` module. For example, the `module1` module provides the `Module1Service` interface for other modules to use:
 
 ```kotlin
 interface Module1Service {
@@ -55,7 +72,7 @@ interface Module1Service {
   fun startActivityOfModule1(context: Context)
 
   /**
-   * get Fragment from module1 
+   * get Fragment from module1
    */
   fun obtainFragmentOfModule1(): Fragment
 
@@ -70,7 +87,7 @@ interface Module1Service {
   fun callMethodAsyncOfModule1(callback: Module1Callback<Module1Entity>)
 
   /**
-   * get RxJava Observable from module1 
+   * get RxJava Observable from module1
    */
   fun observableOfModule1(): Observable<Module1Entity>
 }
@@ -111,7 +128,7 @@ Now, we can get the instance of `Module1Service` anywhere in any module，as lon
 Module1Service service = AppJoint.service(Module1Service.class);
 ```
 
-## Merge custom `Application` logic of modules 
+## Merge custom `Application` logic of modules
 
 You can create a custom `Application` class for each module in order to run the module standalone, for example：
 
@@ -119,7 +136,7 @@ You can create a custom `Application` class for each module in order to run the 
 
 // it supports initializing module applications by priority,
 // if priorities are not defined, they are initialized with an unknown sequence
-@ModuleSpec( priority = 1) 
+@ModuleSpec( priority = 1)
 class Module1Application : Application() {
 
   override fun onCreate() {
@@ -144,7 +161,7 @@ class App : Application() {
 }
 ```
 
-**AppJoint** can ensure that, when the lifecycle methods(such as `onCreate`, `attachBaseContext`) of the class annotated with `@AppSpec` are called, the same lifecycle methods of the class annoatated with `@ModuleSpec` will be called, too. 
+**AppJoint** can ensure that, when the lifecycle methods(such as `onCreate`, `attachBaseContext`) of the class annotated with `@AppSpec` are called, the same lifecycle methods of the class annoatated with `@ModuleSpec` will be called, too.
 
 ## Multi-implementation for cross module interfaces
 
@@ -166,7 +183,7 @@ Module1Service service = AppJoint.service(Module1Service.class, "anotherImpl");
 ## FAQ
 
 + Q: Does AppJoint support Instant Run?
-  
+
   A: Yes，it's based on Transform API, so no problem.
 
 + Q: Do I need to add any Proguard rules for release?
@@ -175,10 +192,10 @@ Module1Service service = AppJoint.service(Module1Service.class, "anotherImpl");
 
 ## TroubleShooting
 
-+ Error in compile time, `AppJoint class file not found, please check "io.github.prototypez:app-joint-core:{latest_version}" is in your dependency graph.`
++ Error in compile time, `AppJoint class file not found, please check "com.github.alwaystest.AppJoint:app-joint-core:{latest_version}" is in your dependency graph.`
 
-  Solution: First, make sure `"io.github.prototypez:app-joint-core:{latest_version}"` can be visited in your main app module. Second, make sure line `apply plugin: 'app-joint'` is right below `apply plugin: 'com.android.application'` before other plugins.
-  
+  Solution: First, make sure `"com.github.alwaystest.AppJoint:app-joint-core:{latest_version}"` can be visited in your main app module. Second, make sure line `apply plugin: 'app-joint'` is right below `apply plugin: 'com.android.application'` before other plugins.
+
 ## LICENSE
 
     Copyright (c) 2016-present, AppJoint Contributors.
