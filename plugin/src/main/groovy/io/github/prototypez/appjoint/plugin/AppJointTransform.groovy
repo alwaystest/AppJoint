@@ -173,7 +173,7 @@ class AppJointTransform extends Transform {
         mProject.logger.info("repackageActions: ${repackageActions.size()}")
 
         if (appJointClassFile == null) {
-            throw new RuntimeException("AppJoint class file not found, please check \"io.github.prototypez:app-joint-core:{latest_version}\" is in your dependency graph.")
+            throw new RuntimeException("AppJoint class file not found, please check \"com.github.alwaystest.AppJoint:app-joint-core:{latest_version}\" is in your dependency graph.")
         }
 
         // Insert code to AppJoint class
