@@ -1,10 +1,10 @@
 package io.github.prototypez.appjoint.module2
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import io.github.prototypez.appjoint.commons.T
 import io.github.prototypez.service.module1.callback.Module1Callback
 import kotlinx.android.synthetic.main.fragment_module2_tab.btnCallMethodAsyncOfApp

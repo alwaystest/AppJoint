@@ -1,7 +1,7 @@
 package io.github.prototypez.appjoint.module1
 
 import android.content.Context
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import io.github.prototypez.appjoint.core.ServiceProvider
 import io.github.prototypez.service.module1.Module1Service
 import io.github.prototypez.service.module1.callback.Module1Callback

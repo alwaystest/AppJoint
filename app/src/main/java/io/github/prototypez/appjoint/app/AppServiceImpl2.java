@@ -2,7 +2,8 @@ package io.github.prototypez.appjoint.app;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
+
+import androidx.fragment.app.Fragment;
 import io.github.prototypez.appjoint.core.ServiceProvider;
 import io.github.prototypez.service.app.AppService;
 import io.github.prototypez.service.app.callback.AppCallback;

@@ -1,7 +1,7 @@
 package io.github.prototypez.appjoint.module1.standalone.mock
 
 import android.content.Context
-import android.support.v4.app.Fragment
+import androidx.core.app.Fragment
 import io.github.prototypez.appjoint.commons.T
 import io.github.prototypez.service.module2.Module2Service
 import io.github.prototypez.service.module2.callback.Module2Callback

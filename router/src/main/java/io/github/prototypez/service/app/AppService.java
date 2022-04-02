@@ -1,7 +1,7 @@
 package io.github.prototypez.service.app;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import io.github.prototypez.service.app.callback.AppCallback;
 import io.github.prototypez.service.app.entity.AppEntity;
 import io.reactivex.Observable;

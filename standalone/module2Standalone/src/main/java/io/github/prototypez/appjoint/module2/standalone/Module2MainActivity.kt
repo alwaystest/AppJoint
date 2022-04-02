@@ -1,7 +1,7 @@
 package io.github.prototypez.appjoint.module2.standalone
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import io.github.prototypez.appjoint.module2.Module2TabFragment
 
 class Module2MainActivity : AppCompatActivity() {

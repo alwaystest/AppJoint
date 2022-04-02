@@ -3,7 +3,7 @@ package io.github.prototypez.appjoint.module2
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 
 class Module2Activity : AppCompatActivity() {
 
